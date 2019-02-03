@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(private gameService: GameService) {}
 
   onClick(): void {
-    this.gameService.test();
+    this.gameService.getGames().subscribe(res => console.log(res));
   }
 }
