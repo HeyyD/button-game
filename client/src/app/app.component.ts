@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameService } from './services/game.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'client';
 
+  constructor(private gameService: GameService) {}
+
   onClick(): void {
-    console.log('I WAS CLICKED');
+    this.gameService.test();
   }
 }
