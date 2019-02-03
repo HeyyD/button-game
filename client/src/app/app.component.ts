@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+
+  onClick(): void {
+    console.log('I WAS CLICKED');
+  }
 }
