@@ -7,11 +7,5 @@ import { GameService } from './services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'client';
-
   constructor(private gameService: GameService) {}
-
-  onClick(): void {
-    this.gameService.test();
-  }
 }
