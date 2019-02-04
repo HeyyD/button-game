@@ -7,10 +7,13 @@ import { GameService } from './services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) {
+    this.gameService.onEmit().subscribe((score: number) => {
+      console.log(`current score is ${score}`);
+    });
+  }
 
   onClick(): void {
-    console.log('CLICK');
     this.gameService.click();
   }
 }
