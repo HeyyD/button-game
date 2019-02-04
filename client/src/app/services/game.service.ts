@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as socketIo from 'socket.io-client';
-import { Action } from '../models/Actions';
+import { Action, SocketAction } from '../models/Actions';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,9 +16,9 @@ export class GameService {
     this.socket = socketIo(this.api);
   }
 
-  onEmit(): Observable<number> {
+  onClick(): Observable<number> {
     return new Observable<number>(observer => {
-      this.socket.on('click', (data: number) => observer.next(data));
+      this.socket.on(SocketAction.CLICK, (data: number) => observer.next(data));
     });
   }
 

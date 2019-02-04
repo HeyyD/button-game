@@ -37,7 +37,6 @@ export class GameServer {
 
       socket.on('click', () => {
         this.score++;
-        console.log(`Current score is ${this.score}`);
         socket.emit('click', this.score);
       })
     })

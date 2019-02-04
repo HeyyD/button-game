@@ -7,9 +7,12 @@ import { GameService } from './services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  score: number;
+
   constructor(private gameService: GameService) {
-    this.gameService.onEmit().subscribe((score: number) => {
-      console.log(`current score is ${score}`);
+    this.gameService.onClick().subscribe((score: number) => {
+      this.score = score;
     });
   }
 
