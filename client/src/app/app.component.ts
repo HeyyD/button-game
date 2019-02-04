@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.gameService.getGames().subscribe(res => this.games = res);
+    // this.gameService.getGames().subscribe(res => this.games = res);
   }
 
   isReady(): boolean {
