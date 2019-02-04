@@ -8,4 +8,9 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent {
   constructor(private gameService: GameService) {}
+
+  onClick(): void {
+    console.log('CLICK');
+    this.gameService.click();
+  }
 }

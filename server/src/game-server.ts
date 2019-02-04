@@ -32,6 +32,10 @@ export class GameServer {
 
     this.io.on('connect', (socket: any) => {
       console.log(`Connected client on port ${this.port}`);
+
+      socket.on('click', () => {
+        console.log('I GOT CLICKED');
+      })
     })
   }
 }
