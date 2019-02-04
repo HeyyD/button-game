@@ -17,8 +17,4 @@ export class GameService {
   constructor(private http: HttpClient) {
     this.socket = socketIo(this.api);
   }
-
-  getGames(): Observable<GameDTO[]> {
-    return this.http.get<GameDTO[]>(this.api);
-  }
 }
