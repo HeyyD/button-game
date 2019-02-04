@@ -8,11 +8,11 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent {
 
-  score: number;
+  clicks: number;
 
   constructor(private gameService: GameService) {
-    this.gameService.onClick().subscribe((score: number) => {
-      this.score = score;
+    this.gameService.onClick().subscribe((clicks: number) => {
+      this.clicks = clicks;
     });
   }
 

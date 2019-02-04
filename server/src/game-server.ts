@@ -37,8 +37,19 @@ export class GameServer {
 
       socket.on('click', () => {
         this.score++;
-        socket.emit('click', this.score);
+        socket.emit('click', this.clicksToPrize());
       })
     })
+  }
+
+  private clicksToPrize(): number {
+    let currentScore = this.score;
+    let neededClicks = 0;
+    
+    while(currentScore % 100 !== 0) {
+      currentScore++;
+      neededClicks++;
+    }
+    return neededClicks;
   }
 }
