@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba($color: #000000, $alpha: 0.5);
+
+  .modal-container {
+    padding: 20px;
+    border-radius: 20px;
+    background: #fff;
+    margin: auto;
+  }
+}
