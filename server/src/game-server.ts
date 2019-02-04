@@ -11,6 +11,8 @@ export class GameServer {
   private io: SocketIO.Server;
   private port: string | number;
 
+  private score = 0;
+
   constructor() {
     this.app = express();
     this.server = createServer(this.app);
@@ -32,6 +34,22 @@ export class GameServer {
 
     this.io.on('connect', (socket: any) => {
       console.log(`Connected client on port ${this.port}`);
+
+      socket.on('click', () => {
+        this.score++;
+        socket.emit('click', this.clicksToPrize());
+      })
     })
+  }
+
+  private clicksToPrize(): number {
+    let currentScore = this.score;
+    let neededClicks = 0;
+    
+    while(currentScore % 100 !== 0) {
+      currentScore++;
+      neededClicks++;
+    }
+    return neededClicks;
   }
 }
