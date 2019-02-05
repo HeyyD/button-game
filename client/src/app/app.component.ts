@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GameService } from './services/game.service';
 import { ModalState } from './models/ModalStates';
+import { SocketEvent } from './models/Actions';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   username = '';
   showModal = true;
 
-  modalState = ModalState.USER;
+  modalState = ModalState.LOADING;
 
   clicks: number;
   prize: string;
@@ -26,6 +27,11 @@ export class AppComponent {
       this.modalState = ModalState.WIN;
       this.prize = prize;
       this.showModal = true;
+    });
+
+    this.gameService.onEvent(SocketEvent.CONNECT).subscribe(() => {
+      console.log('connected to server');
+      this.modalState = ModalState.USER;
     });
   }
 

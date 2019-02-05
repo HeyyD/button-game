@@ -14,6 +14,11 @@
     <h2>You won a {{prize}}!</h2>
     <button (click)="showModal = false">Keep playing</button>
   </ng-container>
+
+  <!-- Loading -->
+  <ng-container *ngSwitchCase="'loading'">
+    <i class="fa fa-gear fa-spin loading-icon"></i>
+  </ng-container>
 </app-modal>
 
 <div class="app-container">

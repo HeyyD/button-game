@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as socketIo from 'socket.io-client';
-import { Action, SocketAction } from '../models/Actions';
+import { Action, SocketAction, SocketEvent } from '../models/Actions';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,6 +25,12 @@ export class GameService {
   onPrize(): Observable<string> {
     return new Observable<string>(observer => {
       this.socket.on(SocketAction.PRIZE, (data: string) => observer.next(data));
+    });
+  }
+
+  onEvent(event: SocketEvent): Observable<SocketEvent> {
+    return new Observable<SocketEvent>(observer => {
+      this.socket.on(event, () => observer.next());
     });
   }
 
