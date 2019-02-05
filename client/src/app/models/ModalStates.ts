@@ -1,3 +1,4 @@
 export enum ModalState {
-  USER = 'user'
+  USER = 'user',
+  WIN = 'win'
 }

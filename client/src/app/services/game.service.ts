@@ -22,6 +22,12 @@ export class GameService {
     });
   }
 
+  onPrize(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on(SocketAction.PRIZE, (data: string) => observer.next(data));
+    });
+  }
+
   click(): void {
     this.socket.emit(Action.CLICK);
   }

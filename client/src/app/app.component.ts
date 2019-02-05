@@ -11,13 +11,21 @@ export class AppComponent {
 
   username = '';
   showModal = true;
+
   modalState = ModalState.USER;
 
   clicks: number;
+  prize: string;
 
   constructor(private gameService: GameService) {
     this.gameService.onClick().subscribe((clicks: number) => {
       this.clicks = clicks;
+    });
+
+    this.gameService.onPrize().subscribe((prize: string) => {
+      this.modalState = ModalState.WIN;
+      this.prize = prize;
+      this.showModal = true;
     });
   }
 

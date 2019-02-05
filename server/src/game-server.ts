@@ -37,7 +37,17 @@ export class GameServer {
 
       socket.on('click', () => {
         this.score++;
+
+        if (this.score % 500 === 0) {
+          socket.emit('prize', 'huge prize');
+        } else if (this.score % 200 === 0) {
+          socket.emit('prize', 'medium prize');
+        } else if (this.score % 100 === 0) {
+          socket.emit('prize', 'small prize');
+        }
+
         socket.emit('click', this.clicksToPrize());
+        console.log(`SCORE: ${this.score}`);
       })
     })
   }
