@@ -1,8 +1,13 @@
-<app-modal *ngIf="showModal" class="user-info">
-  <h1>Welcome to button game!</h1>
-  <h2>Please give us your name</h2>
-  <input type="text" placeholder="Your name" (input)="onUsernameChange($event.target.value)"/>
-  <button (click)="showModal = false" [disabled]="username.length === 0">Start playing</button>
+<app-modal *ngIf="showModal" class="modal-container">
+  <ng-container [ngSwitch]="modalState">
+    <!-- Username modal -->
+    <ng-container *ngSwitchCase="'user'">
+      <h1>Welcome to button game!</h1>
+      <h2>Please give us your name</h2>
+      <input type="text" placeholder="Your name" (input)="onUsernameChange($event.target.value)"/>
+      <button (click)="showModal = false" [disabled]="username.length === 0">Start playing</button>
+    </ng-container>
+  </ng-container>
 </app-modal>
 
 <div style="text-align:center">
