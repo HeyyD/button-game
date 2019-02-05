@@ -7,6 +7,12 @@
       <input class="username-input" type="text" placeholder="Your name" (input)="onUsernameChange($event.target.value)"/>
       <button (click)="showModal = false" [disabled]="username.length === 0">Start playing</button>
     </ng-container>
+    
+    <!-- Win modal -->
+    <ng-container *ngSwitchCase="'win'">
+      <h1>CONGRATULATIONS, YOU WON!!!</h1>
+      <button (click)="showModal = false">Keep playing</button>
+    </ng-container>
   </ng-container>
 </app-modal>
 

@@ -21,7 +21,8 @@ export class AppComponent {
     });
 
     this.gameService.onPrize().subscribe((prize: any) => {
-      console.log(prize);
+      this.modalState = ModalState.WIN;
+      this.showModal = true;
     });
   }
 
