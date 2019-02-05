@@ -8,6 +8,8 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent {
 
+  username = '';
+  showModal = true;
   clicks: number;
 
   constructor(private gameService: GameService) {
@@ -18,5 +20,9 @@ export class AppComponent {
 
   onClick(): void {
     this.gameService.click();
+  }
+
+  onUsernameChange(username: string): void {
+    this.username = username;
   }
 }
