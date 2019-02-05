@@ -15,6 +15,9 @@
     <button (click)="showModal = false">Keep playing</button>
   </ng-container>
 
+  <!-- Winners -->
+  <app-winners *ngSwitchCase="'winners'"></app-winners>
+
   <!-- Loading -->
   <ng-container *ngSwitchCase="'loading'">
     <i class="fa fa-gear fa-spin loading-icon"></i>

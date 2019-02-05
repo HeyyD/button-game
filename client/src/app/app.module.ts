@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { WinnersComponent } from './components/winners/winners.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModalComponent
+    ModalComponent,
+    WinnersComponent
   ],
   imports: [
     BrowserModule,
