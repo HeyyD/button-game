@@ -10,8 +10,8 @@
   </ng-container>
 </app-modal>
 
-<div style="text-align:center">
+<div class="app-container">
   <h1>BUTTON GAME</h1>
-  <div *ngIf="clicks">Needed clicks to prize: {{clicks}}</div>
-  <button (click)="onClick()">CLICK ME</button>
+  <h2>{{ clicks ? 'Needed clicks to prize: ' + clicks : 'Start playing by clicking the button!'}}</h2>
+  <button (click)="onClick()">CLICK ME!</button>
 </div>
