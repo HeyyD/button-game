@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameService } from './services/game.service';
+import { ModalState } from './models/ModalStates';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,10 @@ import { GameService } from './services/game.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  username = '';
+  showModal = true;
+  modalState = ModalState.USER;
 
   clicks: number;
 
@@ -18,5 +23,9 @@ export class AppComponent {
 
   onClick(): void {
     this.gameService.click();
+  }
+
+  onUsernameChange(username: string): void {
+    this.username = username;
   }
 }

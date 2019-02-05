@@ -1,6 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<app-modal *ngIf="showModal" class="modal-container">
+  <ng-container [ngSwitch]="modalState">
+    <!-- Username modal -->
+    <ng-container *ngSwitchCase="'user'">
+      <h1>Welcome to button game!</h1>
+      <h2>Please give us your name</h2>
+      <input class="username-input" type="text" placeholder="Your name" (input)="onUsernameChange($event.target.value)"/>
+      <button (click)="showModal = false" [disabled]="username.length === 0">Start playing</button>
+    </ng-container>
+  </ng-container>
+</app-modal>
+
+<div class="app-container">
   <h1>BUTTON GAME</h1>
-  <div *ngIf="clicks">Needed clicks to prize: {{clicks}}</div>
-  <button (click)="onClick()">CLICK ME</button>
+  <h2>{{ clicks ? 'Needed clicks to prize: ' + clicks : 'Start playing by clicking the button!'}}</h2>
+  <button (click)="onClick()">CLICK ME!</button>
 </div>
