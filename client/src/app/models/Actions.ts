@@ -3,5 +3,6 @@ export enum Action {
 }
 
 export enum SocketAction {
-  CLICK = 'click'
+  CLICK = 'click',
+  PRIZE = 'prize'
 }

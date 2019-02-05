@@ -19,6 +19,10 @@ export class AppComponent {
     this.gameService.onClick().subscribe((clicks: number) => {
       this.clicks = clicks;
     });
+
+    this.gameService.onPrize().subscribe((prize: any) => {
+      console.log(prize);
+    });
   }
 
   onClick(): void {
