@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import * as socketIo from 'socket.io-client';
 import { Action, SocketAction, SocketEvent } from '../models/Actions';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GameService {
   private api = '//localhost:8080/';
   private socket: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.socket = socketIo(this.api);
   }
 
@@ -36,5 +37,9 @@ export class GameService {
 
   click(): void {
     this.socket.emit(Action.CLICK);
+  }
+
+  getWinners(): Observable<string[]> {
+    return this.http.get<string[]>(this.api + 'api/winners');
   }
 }

@@ -56,7 +56,7 @@ export class GameServer {
   private initRoutes(): void {
     this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send('HELLO WORLD');
+      res.send(['HELLO WORLD']);
     })
   }
 

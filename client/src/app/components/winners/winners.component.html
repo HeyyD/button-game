@@ -1,3 +1,7 @@
-<p>
+<p *ngIf="winners; else loading">
   winners works!
 </p>
+
+<ng-template #loading>
+  <i class="fa fa-gear fa-spin loading-icon"></i>
+</ng-template>
