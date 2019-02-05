@@ -39,11 +39,11 @@ export class GameServer {
         this.score++;
 
         if (this.score % 500 === 0) {
-          socket.emit('prize', 'YOU WON A GRAND PRIZE!!!!!!');
+          socket.emit('prize', 'huge prize');
         } else if (this.score % 200 === 0) {
-          socket.emit('prize', 'YOU WON A MEDIUM PRIZE!!!');
+          socket.emit('prize', 'medium prize');
         } else if (this.score % 100 === 0) {
-          socket.emit('prize', 'YOU WON A PRIZE!');
+          socket.emit('prize', 'small prize');
         }
 
         socket.emit('click', this.clicksToPrize());

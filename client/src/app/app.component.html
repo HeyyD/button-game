@@ -10,7 +10,8 @@
     
     <!-- Win modal -->
     <ng-container *ngSwitchCase="'win'">
-      <h1>CONGRATULATIONS, YOU WON!!!</h1>
+      <h1>CONGRATULATIONS!</h1>
+      <h2>You won a {{prize}}!</h2>
       <button (click)="showModal = false">Keep playing</button>
     </ng-container>
   </ng-container>

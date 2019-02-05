@@ -22,9 +22,9 @@ export class GameService {
     });
   }
 
-  onPrize(): Observable<any> {
-    return new Observable<any>(observer => {
-      this.socket.on(SocketAction.PRIZE, (data: any) => observer.next(data));
+  onPrize(): Observable<string> {
+    return new Observable<string>(observer => {
+      this.socket.on(SocketAction.PRIZE, (data: string) => observer.next(data));
     });
   }
 
