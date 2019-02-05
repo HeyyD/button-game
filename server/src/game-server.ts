@@ -20,6 +20,7 @@ export class GameServer {
 
     this.port = process.env.PORT || GameServer.PORT;
 
+    this.initRoutes();
     this.init();
   }
 
@@ -49,6 +50,13 @@ export class GameServer {
         socket.emit('click', this.clicksToPrize());
         console.log(`SCORE: ${this.score}`);
       })
+    })
+  }
+
+  private initRoutes(): void {
+    this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send('HELLO WORLD');
     })
   }
 
