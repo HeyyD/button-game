@@ -2,6 +2,7 @@ import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
 import { WinData } from './model/win-data';
+import { WinModel } from './model/win-model';
 
 export class GameServer {
 
@@ -13,6 +14,7 @@ export class GameServer {
   private port: string | number;
 
   private score = 0;
+  private winners: WinModel[] = [];
 
   constructor() {
     this.app = express();
@@ -52,9 +54,9 @@ export class GameServer {
         console.log(`SCORE: ${this.score}`);
       });
 
-      socket.on('save-winner', (username: string) => {
-        console.log(`${username} saved to winners`);
-        this.io.emit('winner-update', `NEW WINNER SAVED: ${username}`);
+      socket.on('save-winner', (data: WinModel) => {
+        this.winners.push(data);
+        this.io.emit('winner-update', this.winners);
       })
     });
   }
@@ -62,7 +64,7 @@ export class GameServer {
   private initRoutes(): void {
     this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send(['HELLO WORLD']);
+      res.send(this.winners);
     })
   }
 

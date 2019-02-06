@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { WinModel } from 'src/app/models/WinModel';
 
 @Component({
   selector: 'app-winners',
@@ -8,7 +9,7 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class WinnersComponent implements OnInit {
 
-  winners: string[];
+  winners: WinModel[];
 
   constructor(private gameService: GameService) { }
 

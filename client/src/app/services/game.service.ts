@@ -5,6 +5,7 @@ import { Action, SocketAction, SocketEvent } from '../models/Actions';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { WinData } from '../models/WinData';
+import { WinModel } from '../models/WinModel';
 
 @Injectable({
   providedIn: 'root'
@@ -40,11 +41,11 @@ export class GameService {
     this.socket.emit(Action.CLICK);
   }
 
-  saveWinner(username: string): void {
-    this.socket.emit(Action.SAVE_WINNER, username);
+  saveWinner(data: WinModel): void {
+    this.socket.emit(Action.SAVE_WINNER, data);
   }
 
-  getWinners(): Observable<string[]> {
-    return this.http.get<string[]>(this.api + 'api/winners');
+  getWinners(): Observable<WinModel[]> {
+    return this.http.get<WinModel[]>(this.api + 'api/winners');
   }
 }

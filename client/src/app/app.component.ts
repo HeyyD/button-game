@@ -17,7 +17,7 @@ export class AppComponent {
   modalState = ModalState.LOADING;
 
   clicks: number;
-  prize: string;
+  winData: WinData;
 
   constructor(private gameService: GameService) {
     this.gameService.onClick().subscribe((clicks: number) => {
@@ -26,9 +26,9 @@ export class AppComponent {
 
     this.gameService.onPrize().subscribe((data: WinData) => {
       this.modalState = ModalState.WIN;
-      this.prize = data.prize;
+      this.winData = data;
       this.showModal = true;
-      this.gameService.saveWinner(this.username);
+      this.gameService.saveWinner({username: this.username, data: data});
     });
 
     this.gameService.onEvent(SocketEvent.CONNECT).subscribe(() => {
