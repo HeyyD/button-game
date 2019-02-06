@@ -57,4 +57,16 @@ button {
     color: $color-main-light;
     cursor: pointer;
   }
+
+  &.secondary-style {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+
+    &:hover {
+      background: none;
+      border: none;
+      color: $color-main-light;
+    }
+  }
 }
