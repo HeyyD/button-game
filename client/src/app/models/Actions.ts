@@ -1,5 +1,6 @@
 export enum Action {
-  CLICK = 'click'
+  CLICK = 'click',
+  SAVE_WINNER = 'save-winner'
 }
 
 export enum SocketAction {
@@ -9,5 +10,6 @@ export enum SocketAction {
 
 export enum SocketEvent {
   CONNECT = 'connect',
-  DISCONNECT = 'disconnect'
+  DISCONNECT = 'disconnect',
+  WINNER_UPDATE = 'winner-update'
 }

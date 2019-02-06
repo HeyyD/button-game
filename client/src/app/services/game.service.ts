@@ -31,12 +31,16 @@ export class GameService {
 
   onEvent(event: SocketEvent): Observable<SocketEvent> {
     return new Observable<SocketEvent>(observer => {
-      this.socket.on(event, () => observer.next());
+      this.socket.on(event, (data: any) => observer.next(data));
     });
   }
 
   click(): void {
     this.socket.emit(Action.CLICK);
+  }
+
+  saveWinner(username: string): void {
+    this.socket.emit(Action.SAVE_WINNER, username);
   }
 
   getWinners(): Observable<string[]> {

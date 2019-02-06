@@ -49,8 +49,13 @@ export class GameServer {
 
         socket.emit('click', this.clicksToPrize());
         console.log(`SCORE: ${this.score}`);
+      });
+
+      socket.on('save-winner', (username: string) => {
+        console.log(`${username} saved to winners`);
+        this.io.emit('winner-update', `NEW WINNER SAVED: ${username}`);
       })
-    })
+    });
   }
 
   private initRoutes(): void {

@@ -13,7 +13,7 @@ export class AppComponent {
   username = '';
   showModal = true;
 
-  modalState = ModalState.WINNERS;
+  modalState = ModalState.LOADING;
 
   clicks: number;
   prize: string;
@@ -27,11 +27,12 @@ export class AppComponent {
       this.modalState = ModalState.WIN;
       this.prize = prize;
       this.showModal = true;
+      this.gameService.saveWinner(this.username);
     });
 
     this.gameService.onEvent(SocketEvent.CONNECT).subscribe(() => {
       console.log('connected to server');
-      // this.modalState = ModalState.USER;
+      this.modalState = ModalState.USER;
     });
   }
 
