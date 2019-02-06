@@ -4,6 +4,7 @@ import * as socketIo from 'socket.io-client';
 import { Action, SocketAction, SocketEvent } from '../models/Actions';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { WinData } from '../models/WinData';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,9 @@ export class GameService {
     });
   }
 
-  onPrize(): Observable<string> {
-    return new Observable<string>(observer => {
-      this.socket.on(SocketAction.PRIZE, (data: string) => observer.next(data));
+  onPrize(): Observable<WinData> {
+    return new Observable<WinData>(observer => {
+      this.socket.on(SocketAction.PRIZE, (data: WinData) => observer.next(data));
     });
   }
 

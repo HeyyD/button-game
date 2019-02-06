@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameService } from './services/game.service';
 import { ModalState } from './models/ModalStates';
 import { SocketEvent } from './models/Actions';
+import { WinData } from './models/WinData';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +24,9 @@ export class AppComponent {
       this.clicks = clicks;
     });
 
-    this.gameService.onPrize().subscribe((prize: string) => {
+    this.gameService.onPrize().subscribe((data: WinData) => {
       this.modalState = ModalState.WIN;
-      this.prize = prize;
+      this.prize = data.prize;
       this.showModal = true;
       this.gameService.saveWinner(this.username);
     });

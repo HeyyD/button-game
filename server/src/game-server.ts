@@ -1,6 +1,7 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import { WinData } from './model/win-data';
 
 export class GameServer {
 
@@ -40,11 +41,11 @@ export class GameServer {
         this.score++;
 
         if (this.score % 500 === 0) {
-          socket.emit('prize', 'huge prize');
+          socket.emit('prize', new WinData(this.score, 'huge prize'));
         } else if (this.score % 200 === 0) {
-          socket.emit('prize', 'medium prize');
+          socket.emit('prize', new WinData(this.score, 'medium prize'));
         } else if (this.score % 100 === 0) {
-          socket.emit('prize', 'small prize');
+          socket.emit('prize', new WinData(this.score, 'small prize'));
         }
 
         socket.emit('click', this.clicksToPrize());
