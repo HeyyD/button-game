@@ -22,7 +22,12 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    button {
+
+    .winners-button {
+      margin: 10px auto;
+    }
+
+    .click-button {
       font-size: 2em;
       padding: 60px;
       margin: auto;

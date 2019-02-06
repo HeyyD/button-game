@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 import { WinModel } from 'src/app/models/WinModel';
-import { SocketEvent } from 'src/app/models/Actions';
 
 @Component({
   selector: 'app-winners',
@@ -10,6 +9,7 @@ import { SocketEvent } from 'src/app/models/Actions';
 })
 export class WinnersComponent implements OnInit {
 
+  @Output() click = new EventEmitter<void>();
   winners: WinModel[];
 
   constructor(private gameService: GameService) { }
