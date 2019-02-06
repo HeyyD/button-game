@@ -25,7 +25,8 @@
 </app-modal>
 
 <div class="app-container">
-  <h1>BUTTON GAME</h1>
+  <img class="logo" src="../assets/duck-6.png">
+  <h1 class="main-title">BUTTON GAME</h1>
   <h2>{{ clicks ? 'Needed clicks for a prize: ' + clicks : 'Start playing by clicking the button!'}}</h2>
   <button class="click-button" (click)="onClick()">CLICK ME!</button>
   <button class="secondary-style" (click)="toggleWinners()">Show winners</button>
