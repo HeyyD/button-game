@@ -1,4 +1,4 @@
-<ng-container *ngIf="winners; else loading">
+<ng-container *ngIf="winners && winners.length > 0; else loading">
   <h1>Previous winners</h1>
   <ul class="winners-list">
     <li *ngFor="let winner of winners.reverse()">
@@ -10,5 +10,12 @@
 </ng-container>
 
 <ng-template #loading>
-  <i class="fa fa-gear fa-spin loading-icon"></i>
+  <ng-container *ngIf="winners === undefined; else noWinners">
+    <i class="fa fa-gear fa-spin loading-icon"></i>
+  </ng-container>
+</ng-template>
+
+<ng-template #noWinners>
+  <h1>No winners yet</h1>
+  <button (click)="click">Close</button>
 </ng-template>
