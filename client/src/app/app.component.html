@@ -11,9 +11,12 @@
   <ng-container *ngSwitchCase="'win'">
     <h1>CONGRATULATIONS!</h1>
     <i class="fa fa-trophy prize-icon"></i>
-    <h2>You won a {{prize}}!</h2>
+    <h2>You won a {{winData.prize}} from {{winData.score}}th click!</h2>
     <button (click)="showModal = false">Keep playing</button>
   </ng-container>
+
+  <!-- Winners -->
+  <app-winners *ngSwitchCase="'winners'" (click)="showModal = false"></app-winners>
 
   <!-- Loading -->
   <ng-container *ngSwitchCase="'loading'">
@@ -24,5 +27,6 @@
 <div class="app-container">
   <h1>BUTTON GAME</h1>
   <h2>{{ clicks ? 'Needed clicks for a prize: ' + clicks : 'Start playing by clicking the button!'}}</h2>
-  <button (click)="onClick()">CLICK ME!</button>
+  <button class="winners-button" (click)="toggleWinners()">Show winners</button>
+  <button class="click-button" (click)="onClick()">CLICK ME!</button>
 </div>

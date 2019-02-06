@@ -1,6 +1,8 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import { WinData } from './model/win-data';
+import { WinModel } from './model/win-model';
 
 export class GameServer {
 
@@ -12,6 +14,7 @@ export class GameServer {
   private port: string | number;
 
   private score = 0;
+  private winners: WinModel[] = [];
 
   constructor() {
     this.app = express();
@@ -20,6 +23,7 @@ export class GameServer {
 
     this.port = process.env.PORT || GameServer.PORT;
 
+    this.initRoutes();
     this.init();
   }
 
@@ -39,16 +43,31 @@ export class GameServer {
         this.score++;
 
         if (this.score % 500 === 0) {
-          socket.emit('prize', 'huge prize');
+          socket.emit('prize', new WinData(this.score, 'huge prize'));
         } else if (this.score % 200 === 0) {
-          socket.emit('prize', 'medium prize');
+          socket.emit('prize', new WinData(this.score, 'medium prize'));
         } else if (this.score % 100 === 0) {
-          socket.emit('prize', 'small prize');
+          socket.emit('prize', new WinData(this.score, 'small prize'));
         }
 
         socket.emit('click', this.clicksToPrize());
-        console.log(`SCORE: ${this.score}`);
-      })
+      });
+
+      socket.on('save-winner', (data: WinModel) => {
+        this.winners.push(data);
+        this.io.emit('winner-update', this.winners);
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Client disconnected');
+      });
+    });
+  }
+
+  private initRoutes(): void {
+    this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.send(this.winners);
     })
   }
 
