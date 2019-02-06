@@ -34,6 +34,9 @@ export class AppComponent {
     this.gameService.onEvent(SocketEvent.CONNECT).subscribe(() => {
       console.log('connected to server');
       this.modalState = ModalState.USER;
+
+    this.gameService.onEvent(SocketEvent.DISCONNECT).subscribe(() => {
+      console.log('disconnected');
     });
   }
 

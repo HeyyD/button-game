@@ -51,13 +51,16 @@ export class GameServer {
         }
 
         socket.emit('click', this.clicksToPrize());
-        console.log(`SCORE: ${this.score}`);
       });
 
       socket.on('save-winner', (data: WinModel) => {
         this.winners.push(data);
         this.io.emit('winner-update', this.winners);
-      })
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Client disconnected');
+      });
     });
   }
 
