@@ -5,11 +5,11 @@ export enum Action {
 
 export enum SocketAction {
   CLICK = 'click',
-  PRIZE = 'prize'
+  PRIZE = 'prize',
+  WINNER_UPDATE = 'winner-update'
 }
 
 export enum SocketEvent {
   CONNECT = 'connect',
   DISCONNECT = 'disconnect',
-  WINNER_UPDATE = 'winner-update'
 }

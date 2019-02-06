@@ -31,9 +31,15 @@ export class GameService {
     });
   }
 
+  onWinnersUpdate(): Observable<WinModel[]> {
+    return new Observable<WinModel[]>(observer => {
+      this.socket.on(SocketAction.WINNER_UPDATE, (data: WinModel[]) => observer.next(data));
+    });
+  }
+
   onEvent(event: SocketEvent): Observable<SocketEvent> {
     return new Observable<SocketEvent>(observer => {
-      this.socket.on(event, (data: any) => observer.next(data));
+      this.socket.on(event, () => observer.next());
     });
   }
 

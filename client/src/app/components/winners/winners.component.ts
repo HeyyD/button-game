@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 import { WinModel } from 'src/app/models/WinModel';
+import { SocketEvent } from 'src/app/models/Actions';
 
 @Component({
   selector: 'app-winners',
@@ -16,7 +17,10 @@ export class WinnersComponent implements OnInit {
   ngOnInit() {
     this.gameService.getWinners().subscribe(res => {
       this.winners = res;
-      console.log(this.winners);
+    });
+
+    this.gameService.onWinnersUpdate().subscribe((data: WinModel[]) => {
+      this.winners = data;
     });
   }
 
