@@ -12,7 +12,7 @@ import { WinModel } from '../models/WinModel';
 })
 export class GameService {
 
-  private api = '//localhost:8080/';
+  private api = 'https://button-game-server.herokuapp.com/';
   private socket: any;
 
   constructor(private http: HttpClient) {
