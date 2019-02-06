@@ -1,20 +1,32 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<app-modal *ngIf="showModal" [ngSwitch]="modalState" class="modal-container">
+  <!-- Username modal -->
+  <ng-container *ngSwitchCase="'user'">
+    <h1>Welcome to button game!</h1>
+    <h2>Please give us your name</h2>
+    <input class="username-input" type="text" placeholder="Your name" (input)="onUsernameChange($event.target.value)"/>
+    <button (click)="showModal = false" [disabled]="username.length === 0">Start playing</button>
+  </ng-container>
+  
+  <!-- Win modal -->
+  <ng-container *ngSwitchCase="'win'">
+    <h1>CONGRATULATIONS!</h1>
+    <i class="fa fa-trophy prize-icon"></i>
+    <h2>You won a {{winData.prize}} from {{winData.score}}th click!</h2>
+    <button (click)="showModal = false">Keep playing</button>
+  </ng-container>
 
+  <!-- Winners -->
+  <app-winners *ngSwitchCase="'winners'" (click)="showModal = false"></app-winners>
+
+  <!-- Loading -->
+  <ng-container *ngSwitchCase="'loading'">
+    <i class="fa fa-gear fa-spin loading-icon"></i>
+  </ng-container>
+</app-modal>
+
+<div class="app-container">
+  <h1>BUTTON GAME</h1>
+  <h2>{{ clicks ? 'Needed clicks for a prize: ' + clicks : 'Start playing by clicking the button!'}}</h2>
+  <button class="winners-button" (click)="toggleWinners()">Show winners</button>
+  <button class="click-button" (click)="onClick()">CLICK ME!</button>
+</div>

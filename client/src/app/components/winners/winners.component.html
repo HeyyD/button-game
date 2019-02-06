@@ -1,0 +1,21 @@
+<ng-container *ngIf="winners && winners.length > 0; else loading">
+  <h1>Previous winners</h1>
+  <ul class="winners-list">
+    <li *ngFor="let winner of winners.reverse()">
+      <i class="fa fa-trophy"></i>
+      {{winner.username}} won a {{winner.data.prize}} from {{winner.data.score}}th click
+    </li>
+  </ul>
+  <button (click)="click">Close</button>
+</ng-container>
+
+<ng-template #loading>
+  <ng-container *ngIf="winners === undefined; else noWinners">
+    <i class="fa fa-gear fa-spin loading-icon"></i>
+  </ng-container>
+</ng-template>
+
+<ng-template #noWinners>
+  <h1>No winners yet</h1>
+  <button (click)="click">Close</button>
+</ng-template>
