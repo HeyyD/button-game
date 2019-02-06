@@ -16,7 +16,7 @@
   </ng-container>
 
   <!-- Winners -->
-  <app-winners *ngSwitchCase="'winners'" (click)="showModal = false"></app-winners>
+  <app-winners *ngSwitchCase="'winners'" (closeModal)="showModal = false"></app-winners>
 
   <!-- Loading -->
   <ng-container *ngSwitchCase="'loading'">

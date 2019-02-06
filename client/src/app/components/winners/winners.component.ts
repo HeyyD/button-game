@@ -9,7 +9,7 @@ import { WinModel } from 'src/app/models/WinModel';
 })
 export class WinnersComponent implements OnInit {
 
-  @Output() click = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<void>();
   winners: WinModel[];
 
   constructor(private gameService: GameService) { }
@@ -23,5 +23,4 @@ export class WinnersComponent implements OnInit {
       this.winners = data;
     });
   }
-
 }
