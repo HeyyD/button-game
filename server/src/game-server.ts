@@ -24,31 +24,34 @@ export class GameServer {
 
   constructor() {
     this.app = express();
-    this.config();
-    this.startServer();
+    this.init();
   }
 
   getApp(): express.Application {
     return this.app;
   }
 
-  private config(): void {
+  private init(): void {
     this.app.use(cors());
 
     // init routes
     this.winnersController = new WinnersController();
     this.app.use('/api/winners', this.winnersController.getRouter());
 
-    mongoose.connect(this.dbUri, { useNewUrlParser: true }).then(() => {
-      console.log('CONNECTED TO DATABASE');
-    }).catch((error: Error) => {
-      console.log(error);
-    })
-
     this.server = createServer(this.app);
     this.io = socketIo(this.server)
 
     this.port = process.env.PORT || GameServer.PORT;
+
+    mongoose.connect(this.dbUri, { useNewUrlParser: true }).then(() => {
+      console.log('CONNECTED TO DATABASE');
+      this.winnersController.initWinners();
+      this.startServer();
+    }).catch((error: Error) => {
+      console.log('Something went wrong when connecting to database');
+      console.log(error);
+      this.startServer();
+    });
   }
 
   private startServer(): void {

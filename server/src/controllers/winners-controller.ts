@@ -1,5 +1,6 @@
 import * as express from 'express';
-import { WinModel } from '../models/win-model';
+
+import { WinModel, WinDbModel } from '../models/win-model';
 
 export class WinnersController {
   private winners: WinModel[] = [];
@@ -21,5 +22,25 @@ export class WinnersController {
 
   saveWinner(data: WinModel) {
     this.winners.push(data);
+    let winner = new WinDbModel({
+      username: data.username,
+      data: {
+        score: data.data.score,
+        prize: data.data.prize
+      }
+    });
+    winner.save().then(() => {
+      console.log(`${data.username} saved to database`)
+    }).catch((error: any) => {
+      console.log(error);
+    });
+  }
+
+  initWinners(): void {
+    WinDbModel.find({}, (error: any, res: WinModel[]) => {
+      res.forEach(doc => {
+        this.winners.push(doc);
+      })
+    })
   }
 }

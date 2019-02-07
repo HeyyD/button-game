@@ -14,12 +14,15 @@
   "dependencies": {
     "@types/express": "^4.16.1",
     "@types/socket.io": "^2.1.2",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "http": "0.0.0",
+    "mongoose": "^5.4.10",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.3.12",
     "gulp": "^4.0.0",
     "gulp-typescript": "^5.0.0",
     "typescript": "^3.3.1"
