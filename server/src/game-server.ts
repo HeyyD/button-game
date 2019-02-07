@@ -4,7 +4,6 @@ import * as socketIo from 'socket.io';
 import * as cors from 'cors';
 import * as mongoose from 'mongoose';
 
-import { WinData } from './models/win-data';
 import { WinModel } from './models/win-model';
 import { WinnersController } from './controllers/winners-controller';
 
