@@ -22,13 +22,7 @@ export class WinnersController {
 
   saveWinner(data: WinModel) {
     this.winners.push(data);
-    let winner = new WinDbModel({
-      username: data.username,
-      data: {
-        score: data.data.score,
-        prize: data.data.prize
-      }
-    });
+    let winner = new WinDbModel(data);
     winner.save().then(() => {
       console.log(`${data.username} saved to database`)
     }).catch((error: any) => {

@@ -4,7 +4,6 @@ import * as socketIo from 'socket.io';
 import * as cors from 'cors';
 import * as mongoose from 'mongoose';
 
-import { WinData } from './models/win-data';
 import { WinModel } from './models/win-model';
 import { WinnersController } from './controllers/winners-controller';
 
@@ -47,7 +46,7 @@ export class GameServer {
       console.log('CONNECTED TO DATABASE');
       this.winnersController.initWinners();
       this.startServer();
-    }).catch((error: Error) => {
+    }).catch((error: any) => {
       console.log('Something went wrong when connecting to database');
       console.log(error);
       this.startServer();
