@@ -1,8 +1,10 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
+import * as cors from 'cors';
 import { WinData } from './models/win-data';
 import { WinModel } from './models/win-model';
+import { WinnersController } from './controllers/winners-controller';
 
 export class GameServer {
 
@@ -12,26 +14,31 @@ export class GameServer {
   private server: Server;
   private io: SocketIO.Server;
   private port: string | number;
+  private winnersController: WinnersController;
 
   private score = 0;
-  private winners: WinModel[] = [];
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
+
+    // init routes
+    this.winnersController = new WinnersController();
+    this.app.use('/api/winners', this.winnersController.getRouter());
+
     this.server = createServer(this.app);
     this.io = socketIo(this.server)
 
     this.port = process.env.PORT || GameServer.PORT;
 
-    this.initRoutes();
-    this.init();
+    this.startServer();
   }
 
   getApp(): express.Application {
     return this.app;
   }
 
-  private init(): void {
+  private startServer(): void {
     this.server.listen(this.port, () => {
       console.log(`Running server on port ${this.port}`);
     });
@@ -54,21 +61,14 @@ export class GameServer {
       });
 
       socket.on('save-winner', (data: WinModel) => {
-        this.winners.push(data);
-        this.io.emit('winner-update', this.winners);
+        this.winnersController.saveWinner(data);
+        this.io.emit('winner-update', this.winnersController.getWinners());
       });
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');
       });
     });
-  }
-
-  private initRoutes(): void {
-    this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send(this.winners);
-    })
   }
 
   private clicksToPrize(): number {
