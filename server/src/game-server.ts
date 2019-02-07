@@ -1,8 +1,8 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
-import { WinData } from './model/win-data';
-import { WinModel } from './model/win-model';
+import { WinData } from './models/win-data';
+import { WinModel } from './models/win-model';
 
 export class GameServer {
 
