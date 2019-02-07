@@ -1,3 +1,4 @@
-export class WinData {
-  constructor(private score: number, private prize: string) {}
+export interface WinData {
+  score: number;
+  prize: string;
 }

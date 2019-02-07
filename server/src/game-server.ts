@@ -2,6 +2,8 @@ import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
 import * as cors from 'cors';
+import * as mongoose from 'mongoose';
+
 import { WinData } from './models/win-data';
 import { WinModel } from './models/win-model';
 import { WinnersController } from './controllers/winners-controller';
@@ -18,24 +20,35 @@ export class GameServer {
 
   private score = 0;
 
+  private dbUri = 'mongodb://dbuser:dbpassword123@ds059722.mlab.com:59722/button-game'
+
   constructor() {
     this.app = express();
+    this.config();
+    this.startServer();
+  }
+
+  getApp(): express.Application {
+    return this.app;
+  }
+
+  private config(): void {
     this.app.use(cors());
 
     // init routes
     this.winnersController = new WinnersController();
     this.app.use('/api/winners', this.winnersController.getRouter());
 
+    mongoose.connect(this.dbUri, { useNewUrlParser: true }).then(() => {
+      console.log('CONNECTED TO DATABASE');
+    }).catch((error: Error) => {
+      console.log(error);
+    })
+
     this.server = createServer(this.app);
     this.io = socketIo(this.server)
 
     this.port = process.env.PORT || GameServer.PORT;
-
-    this.startServer();
-  }
-
-  getApp(): express.Application {
-    return this.app;
   }
 
   private startServer(): void {
@@ -50,11 +63,11 @@ export class GameServer {
         this.score++;
 
         if (this.score % 500 === 0) {
-          socket.emit('prize', new WinData(this.score, 'huge prize'));
+          socket.emit('prize', {score: this.score, prize: 'huge prize'});
         } else if (this.score % 200 === 0) {
-          socket.emit('prize', new WinData(this.score, 'medium prize'));
+          socket.emit('prize', {score: this.score, prize: 'medium prize'});
         } else if (this.score % 100 === 0) {
-          socket.emit('prize', new WinData(this.score, 'small prize'));
+          socket.emit('prize', {score: this.score, prize: 'small prize'});
         }
 
         socket.emit('click', this.clicksToPrize());
@@ -68,6 +81,10 @@ export class GameServer {
       socket.on('disconnect', () => {
         console.log('Client disconnected');
       });
+    });
+
+    this.server.on('close', () => {
+      mongoose.connection.close();
     });
   }
 
