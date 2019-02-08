@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-$background: #c5e16f;
-$background-darker: #92c46d;
-$background-lighter: #fff;
+$background: #ee4c31;
+$background-darker: #881f0e;
+$background-lighter: #ec5840;
 $background-disable: #ababab;
-$color-main: #1d344e;
-$color-main-light: #357f7c;
+$color-main: #fbbe58;
+$color-main-light: #fff;
 $color-disable-main: #555;
 
 
@@ -56,5 +56,17 @@ button {
     border: solid 2px $color-main-light;
     color: $color-main-light;
     cursor: pointer;
+  }
+
+  &.secondary-style {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+
+    &:hover {
+      background: none;
+      border: none;
+      color: $color-main-light;
+    }
   }
 }

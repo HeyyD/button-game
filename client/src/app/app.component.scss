@@ -1,6 +1,5 @@
 :host {
   display: block;
-  height: 100%;
 
   .modal-container {
     button {
@@ -19,18 +18,20 @@
   }
 
   .app-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    padding: 30px 0;
 
-    .winners-button {
-      margin: 10px auto;
+    .logo {
+      max-height: 300px;
     }
 
-    .click-button {
-      font-size: 2em;
-      padding: 60px;
+    button {
+      display: block;
       margin: auto;
+      
+      &.click-button {
+        font-size: 2em;
+        padding: 60px;
+      }
     }
   }
 }

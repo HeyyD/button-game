@@ -6,7 +6,7 @@
       {{winner.username}} won a {{winner.data.prize}} from {{winner.data.score}}th click
     </li>
   </ul>
-  <button (click)="click">Close</button>
+  <button (click)="closeModal.emit()">Close</button>
 </ng-container>
 
 <ng-template #loading>
@@ -17,5 +17,5 @@
 
 <ng-template #noWinners>
   <h1>No winners yet</h1>
-  <button (click)="click">Close</button>
+  <button (click)="closeModal.emit()">Close</button>
 </ng-template>

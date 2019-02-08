@@ -1,8 +1,11 @@
 import { createServer, Server } from 'http';
 import * as express from 'express';
 import * as socketIo from 'socket.io';
-import { WinData } from './model/win-data';
-import { WinModel } from './model/win-model';
+import * as cors from 'cors';
+import * as mongoose from 'mongoose';
+
+import { WinModel } from './models/win-model';
+import { WinnersController } from './controllers/winners-controller';
 
 export class GameServer {
 
@@ -12,18 +15,14 @@ export class GameServer {
   private server: Server;
   private io: SocketIO.Server;
   private port: string | number;
+  private winnersController: WinnersController;
 
   private score = 0;
-  private winners: WinModel[] = [];
+
+  private dbUri = 'mongodb://dbuser:dbpassword123@ds059722.mlab.com:59722/button-game'
 
   constructor() {
     this.app = express();
-    this.server = createServer(this.app);
-    this.io = socketIo(this.server)
-
-    this.port = process.env.PORT || GameServer.PORT;
-
-    this.initRoutes();
     this.init();
   }
 
@@ -32,6 +31,29 @@ export class GameServer {
   }
 
   private init(): void {
+    this.app.use(cors());
+
+    // init routes
+    this.winnersController = new WinnersController();
+    this.app.use('/api/winners', this.winnersController.getRouter());
+
+    this.server = createServer(this.app);
+    this.io = socketIo(this.server)
+
+    this.port = process.env.PORT || GameServer.PORT;
+
+    mongoose.connect(this.dbUri, { useNewUrlParser: true }).then(() => {
+      console.log('CONNECTED TO DATABASE');
+      this.winnersController.initWinners();
+      this.startServer();
+    }).catch((error: any) => {
+      console.log('Something went wrong when connecting to database');
+      console.log(error);
+      this.startServer();
+    });
+  }
+
+  private startServer(): void {
     this.server.listen(this.port, () => {
       console.log(`Running server on port ${this.port}`);
     });
@@ -43,32 +65,29 @@ export class GameServer {
         this.score++;
 
         if (this.score % 500 === 0) {
-          socket.emit('prize', new WinData(this.score, 'huge prize'));
+          socket.emit('prize', {score: this.score, prize: 'huge prize'});
         } else if (this.score % 200 === 0) {
-          socket.emit('prize', new WinData(this.score, 'medium prize'));
+          socket.emit('prize', {score: this.score, prize: 'medium prize'});
         } else if (this.score % 100 === 0) {
-          socket.emit('prize', new WinData(this.score, 'small prize'));
+          socket.emit('prize', {score: this.score, prize: 'small prize'});
         }
 
         socket.emit('click', this.clicksToPrize());
       });
 
       socket.on('save-winner', (data: WinModel) => {
-        this.winners.push(data);
-        this.io.emit('winner-update', this.winners);
+        this.winnersController.saveWinner(data);
+        this.io.emit('winner-update', this.winnersController.getWinners());
       });
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');
       });
     });
-  }
 
-  private initRoutes(): void {
-    this.app.get('/api/winners', (req: express.Request , res: express.Response) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send(this.winners);
-    })
+    this.server.on('close', () => {
+      mongoose.connection.close();
+    });
   }
 
   private clicksToPrize(): number {
